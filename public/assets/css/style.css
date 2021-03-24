@@ -475,6 +475,17 @@ section {
   left: calc(50% - 30px);
 }
 
+.section-title h3::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: #0ea2bb;
+  top: 125%;
+  left: calc(50% - 30px);
+}
+
 /*--------------------------------------------------------------
 # Breadcrumbs
 --------------------------------------------------------------*/
