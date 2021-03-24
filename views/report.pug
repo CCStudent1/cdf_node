@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Report Page
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1 Report Page
+    h3= 'Household Size: ' + input.household_size
+    h3= 'Net Income: ' + input.net_income
+    h3= 'Gross Income: ' + input.gross_income
+    block content
+    if program_info.cal_fresh
+      h2 Cal Fresh Information
+      if input.net_income < program_info.cal_fresh.max_net_income
+        h3 Eligible
+      else
+        h3 Not Eligible
