@@ -33,7 +33,6 @@ else
         if (parseFloat(input.guaranteed_income) > 0) & (parseFloat(input.net_income) < parseFloat(program_info.cal_fresh.max_net_income))
           h3= "Your Input Guaranteed Income: $" + input.guaranteed_income + ", made you ineligible for CalFresh"
 
-
       h2 Guaranteed Income Information
       form(method='POST' action='/report')
         label Amount Max Guaranteed Income
