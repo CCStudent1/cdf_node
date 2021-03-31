@@ -19,8 +19,9 @@ a {
 }
 
 a:hover {
-  color: #0ea2bb;
+  opacity: 0.3;
   text-decoration: none;
+  transition: 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .font-primary {
