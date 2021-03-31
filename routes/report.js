@@ -24,18 +24,22 @@ var sampleParams = {
   'county': 'alameda',
   'household_size': 3,
   'net_income': 900,
-  'gross_income': 1100
+  'gross_income': 1100,
+  'guaranteed_income': 0
 }
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  household_size = sampleParams['household_size']
+/* POST form into report. */
+router.post('/', function(req, res, next) {
+  const formParams = req.body
+  console.log('REQ: ', formParams)
+
+  household_size = formParams['household_size']
   if (household_size > 0 || household_size < 4) {
     var query = sampleTableQuery['alameda'][household_size]
     var splitQuery = query.split('_')
 
     resParams = {
-      'input': sampleParams,
+      'input': formParams,
       'program_info': {
         'cal_fresh': {
           'max_net_income': splitQuery[0],
@@ -52,7 +56,7 @@ router.get('/', function(req, res, next) {
     res.render('report', { error: True});
   }
 
-
+  /* GET users listing. */
   // queryStr = req.query
   // res.sendFile('charts.html', { root: __dirname });
   //res.render('charts.html')
