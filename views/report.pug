@@ -1,0 +1,46 @@
+doctype html
+html
+  head
+    title Report Page
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+if parseFloat(input.guaranteed_income) > 0
+  - var updated_net_income = parseFloat(input.guaranteed_income) + parseFloat(input.net_income)
+else
+  - var updated_net_income = parseFloat(input.guaranteed_income)
+
+- var GI = input.guaranteed_income
+
+  body
+    h1 Report Page
+    h3= 'Household Size: ' + input.household_size
+    h3= 'Net Monthly Income: $' + input.net_income
+    h3= 'Gross Monthly Income: $' + input.gross_income
+    block content
+    if program_info.cal_fresh
+      h2 Cal Fresh Information
+      if updated_net_income < parseFloat(program_info.cal_fresh.max_net_income)
+        h3 Eligibility: Eligible
+        h3= 'Max Monthly Allotment: $' + program_info.cal_fresh.max_allotment
+        - var GI = (parseFloat(program_info.cal_fresh.max_net_income) - parseFloat(input.net_income))
+
+        if (parseFloat(input.guaranteed_income) > 0)
+          h3= "Your Input Guaranteed Income: $" + input.guaranteed_income + ", still makes you eligible CalFresh"
+
+      else
+        h3 Eligibility: Not Eligible
+        - var GI = input.guaranteed_income
+        if (parseFloat(input.guaranteed_income) > 0) & (parseFloat(input.net_income) < parseFloat(program_info.cal_fresh.max_net_income))
+          h3= "Your Input Guaranteed Income: $" + input.guaranteed_income + ", made you ineligible for CalFresh"
+
+      h2 Guaranteed Income Information
+      form(method='POST' action='/report')
+        label Amount Max Guaranteed Income
+        input(type="number" name="guaranteed_income" value = GI)
+
+        input(type='hidden' name='county' value=input.county)
+        input(type='hidden' name='household_size' value=input.household_size)
+        input(type='hidden' name='net_income' value=input.net_income)
+        input(type='hidden' name='gross_income' value=input.gross_income)
+
+        button(class=buttonClass type="submit") Recalculate!
