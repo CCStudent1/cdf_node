@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 
 /* Stubbing in Database Table
   Example:
@@ -57,9 +57,25 @@ var router = express.Router();
 //     res.render('report', { error: True});
 //   }
 
+async function sheet(){
+  const creds = require('./client_secret.json');
+  const doc = new GoogleSpreadsheet('1VxtVrw7sEMXV2CJAKvWWB-jPSsHGU7mJpt0IaPUiuP8');
+  await doc.useServiceAccountAuth(creds);
+
+  await doc.loadInfo(); // loads document properties and worksheets
+  console.log(doc.title);
+
+  const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
+  console.log(sheet.title);
+  console.log(sheet.rowCount);
+  const rows = await sheet.getRows(); // can pass in { limit, offset }
+  console.log(rows[1]['2010'])
+}
+
   /* GET users listing. */
 router.get('/', function(req, res, next) {
   queryStr = req.query
+  sheet()
   res.sendFile('charts.html', { root: __dirname });
   //res.render('charts.html')
   //res.render(__dirname + "/views/charts.html", {name:queryStr});
