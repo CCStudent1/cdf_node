@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
-let infoArray
+var infoArray
+var benefitTable
 
 async function sheet(data){
   const creds = require('./client_secret.json');
@@ -31,8 +32,22 @@ async function sheet(data){
   // console.log(rows[1]['2010'])
 }
 
+async function updateCell(sheet,cellID,value){
+  let cell = sheet.getCellByA1(cellID)
+  console.log(cell.value)
+  cell.value = parseInt(value)
+  await sheet.saveUpdatedCells()
+  await sheet.loadCells();
+}
+
+function getCellValue(sheet,cellID){
+  let cell = sheet.getCellByA1(cellID)
+  return parseInt(cell.value)
+}
+
 async function loadTable(data){
   infoArray = []
+  benefitTable = []
   const creds = require('./client_secret.json');
   const mainDoc = new GoogleSpreadsheet('1UXFqx0MCXuStZe1O8QAtFwbpQpQNvbIrbWgxBGwkdEo');
   await mainDoc.useServiceAccountAuth(creds);
@@ -50,8 +65,23 @@ async function loadTable(data){
   for(let i = 0;i<rows.length;i++){
     let row = rows[i]
     if(row.sheetID != null){
-      infoArray.push({benefit:row.Benefit,id:row.sheetID})
       console.log(row.Benefit + '\\' + row.sheetID)
+      if(row.Benefit=='CalFresh'){
+        console.log('Update Sheet')
+        let benefitDoc = new GoogleSpreadsheet(row.sheetID)
+        await benefitDoc.useServiceAccountAuth(creds)
+        await benefitDoc.loadInfo()
+        let houseHoldSheet = benefitDoc.sheetsByIndex[1]
+        await houseHoldSheet.loadCells()
+        
+        await updateCell(houseHoldSheet,'B3',200)//Update Income
+        await updateCell(houseHoldSheet,'B9',3)//Update Household Size
+        let calcSheet = benefitDoc.sheetsByIndex[2]
+        await calcSheet.loadCells()
+        infoArray.push({benefit:row.Benefit,id:row.sheetID,allotment: getCellValue(calcSheet,'B2')})  
+        continue
+      }
+      infoArray.push({benefit:row.Benefit,id:row.sheetID,allotment:0})
     }
   }
   console.log('Inside Function')
