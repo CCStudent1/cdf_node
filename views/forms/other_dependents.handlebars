@@ -1,0 +1,46 @@
+<section class="d-flex align-items-center">
+  <div class="container-sm mt-5 ">
+
+    <div class="d-flex justify-content-center">
+
+      <input type='hidden'>
+
+      <form action="/form/monthly_expenses" method="post">
+
+        <div class="card text" style="width: 30rem;">
+          <div class="card-header">
+          Other Dependents
+          </div>
+          <div class="card-body">
+
+
+            <div class="form-group">
+              <label for="num_pregnant">How many other people live in this household that are not already counted?</label>
+              <input type="number" class="form-control" name="num_pregnant" id="num_pregnant" placeholder="Expecting">
+              <small> These people must share food and expenses with the family members already counted. </small>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="gross_income">Enter the income for all the other people included in the question above.</label>
+              <input type="number" class="form-control" name="gross_income" id="gross_income" placeholder="Gross Monthly Income">
+              <small> Earned and unearned income before taxes. </small>
+            </div>
+
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" formaction="/form/children_dependents" class="btn btn-primary mt-3">Back
+              <button type="submit" class="btn btn-primary mt-3">Next
+            </div>
+          </div>
+
+          <div class="card-footer text-muted text-center">
+            Page 4/5
+          </div>
+
+      </form>
+    </div>
+
+
+
+  </div>
+</section>
