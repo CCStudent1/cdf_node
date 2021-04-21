@@ -189,7 +189,13 @@
         <ul class="faq-list" data-aos="fade-up" data-aos-delay="100">
             {{#each infoArray}}
             <li>
-              <div data-bs-toggle="collapse" class="collapsed question" >{{this}}</div>
+              <div data-bs-toggle="collapse" href="#faq{{this.index}}" class="collapsed question" >{{this.item}}<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div class="collapse" id="faq{{this.index}}" data-bs-parent=".faq-list">
+                <p>
+                  <a href="{{this.link}}">{{this.item}}</a>             
+                  {{this.desc}}
+                </p>
+              </div>
             </li>
             {{/each}}
         

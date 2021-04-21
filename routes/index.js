@@ -19,7 +19,7 @@ async function sheet(){
   let rowCount = rows.length
   infoArray = []
   for(let i = 0;i < rowCount; i++){
-      infoArray.push(rows[i].Item)
+      infoArray.push({index:i,item:rows[i].Item, desc:rows[i].Description,link:rows[i].Link})
   }
 }
 
