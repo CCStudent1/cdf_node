@@ -1,0 +1,67 @@
+<section class="d-flex align-items-center">
+  <div class="container-sm mt-5 ">
+    <div class="d-flex justify-content-center">
+      <form action="/form/other_dependents" method="post">
+
+        <!-- Form Persistence -->
+        <input type="hidden" name="county" value={{form_response.county}}>
+        <input type="hidden" name="married" value={{form_response.married}}>
+        <input type="hidden" name="gross_income" value={{form_response.gross_income}}>
+        <input type="hidden" name="other_income" value={{form_response.other_income}}>
+        <input type="hidden" name="other_dependents" value={{form_response.other_dependents}}>
+        <input type="hidden" name="other_dependent_income" value={{form_response.other_dependent_income}}>
+        <input type="hidden" name="food" value={{form_response.food}}>
+        <input type="hidden" name="healthcare" value={{form_response.healthcare}}>
+        <input type="hidden" name="rent" value={{form_response.rent}}>
+        <input type="hidden" name="childcare" value={{form_response.childcare}}>
+        <input type="hidden" name="transportation" value={{form_response.transportation}}>
+
+        <div class="card text" style="width: 30rem;">
+          <div class="card-header">
+          Child Dependents
+          </div>
+          <div class="card-body">
+
+            <div class="form-group">
+              <label for="num_pregnant">If one of the adults is pregnant, how many babies are
+                <br>expected during this pregnancy?</label>
+              <input type="number" class="form-control" name="num_pregnant" id="num_pregnant" placeholder="Expecting" value={{form_response.num_pregnant}}>
+              <small> Enter 0 if no adult in the household is pregnant </small>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="num_child_under_1">How many children below the age of 1 do you have?</label>
+              <input type="number" class="form-control" name="num_children_under_1" id="num_children_under_1" placeholder="Number of Children Under 1 Year of Age" value={{form_response.num_children_under_1}}>
+              <small> Enter 0 if no children under the age of 1</small>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="num_child_under_6">How many children below the age of 6 do you have?</label>
+              <input type="number" class="form-control" name="num_children_under_6" id="num_children_under_6" placeholder="Number of Children Under 6 Years of Age" value={{form_response.num_children_under_6}}>
+              <small> Enter 0 if no children under the age of 6 </small>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="num_child_under_18">How many children below the age of 18 do you have?</label>
+              <input type="number" class="form-control" name="num_children_under_18" id="num_children_under_18" placeholder="Number of Children Under 18 Years of Age" value={{form_response.num_children_under_18}}>
+              <small> Enter 0 if no children under the age of 18 </small>
+            </div>
+
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" formaction="/form/income" class="btn btn-primary mt-3">Back
+              <button type="submit" class="btn btn-primary mt-3">Next
+            </div>
+          </div>
+
+          <div class="card-footer text-muted text-center">
+            Page 3/5
+          </div>
+
+      </form>
+    </div>
+
+
+
+  </div>
+</section>

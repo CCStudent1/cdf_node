@@ -1,0 +1,68 @@
+<section class="d-flex align-items-center">
+  <div class="container-sm mt-5 ">
+    <div class="d-flex justify-content-center">
+      <form action="/report" method="post">
+
+        <!-- Form Persistence -->
+        <input type="hidden" name="county" value={{form_response.county}}>
+        <input type="hidden" name="married" value={{form_response.married}}>
+        <input type="hidden" name="gross_income" value={{form_response.gross_income}}>
+        <input type="hidden" name="other_income" value={{form_response.other_income}}>
+        <input type="hidden" name="num_pregnant" value={{form_response.num_pregnant}}>
+        <input type="hidden" name="num_children_under_1" value={{form_response.num_children_under_1}}>
+        <input type="hidden" name="num_children_under_6" value={{form_response.num_children_under_6}}>
+        <input type="hidden" name="num_children_under_18" value={{form_response.num_children_under_18}}>
+        <input type="hidden" name="other_dependents" value={{form_response.other_dependents}}>
+        <input type="hidden" name="other_dependent_income" value={{form_response.other_dependent_income}}>
+
+        <div class="card text" style="width: 30rem;">
+          <div class="card-header">
+          Monthly Expenses
+          </div>
+          <div class="card-body">
+
+            <div class="text-center">
+              <h7> Enter your estimated monthly expenses for the following:</h7>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="food">Food</label>
+              <input type="number" class="form-control" name="food" id="food" placeholder="Food Costs" value={{form_response.food}}>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="healthcare">Healthcare</label>
+              <input type="number" class="form-control" name="healthcare" id="healthcare" placeholder="Healthcare Costs" value={{form_response.healthcare}}>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="rent">Rent</label>
+              <input type="number" class="form-control" name="rent" id="rent" placeholder="Rent Costs" value={{form_response.rent}}>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="childcare">Childcare</label>
+              <input type="number" class="form-control" name="childcare" id="childcare" placeholder="Childcare Costs" value={{form_response.childcare}}>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="transportation">Transportation</label>
+              <input type="number" class="form-control" name="transportation" id="transportation" placeholder="Transportation Costs" value={{form_response.transportation}}>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" formaction="/form/other_dependents" class="btn btn-primary mt-3">Back
+              <button type="submit" class="btn btn-success mt-3">Finish
+            </div>
+          </div>
+          <div class="card-footer text-muted text-center">
+            Page 5/5
+          </div>
+
+      </form>
+    </div>
+
+
+
+  </div>
+</section>

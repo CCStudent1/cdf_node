@@ -1,0 +1,120 @@
+<section class="d-flex align-items-center">
+  <div class="container-sm mt-5 ">
+
+    <div class="d-flex justify-content-center">
+
+      <input type='hidden'>
+
+      <form action="/form/income" method="post">
+
+        <!-- Form Persistence -->
+        <input type="hidden" name="gross_income" value={{form_response.gross_income}}>
+        <input type="hidden" name="other_income" value={{form_response.other_income}}>
+        <input type="hidden" name="num_pregnant" value={{form_response.num_pregnant}}>
+        <input type="hidden" name="num_children_under_1" value={{form_response.num_children_under_1}}>
+        <input type="hidden" name="num_children_under_6" value={{form_response.num_children_under_6}}>
+        <input type="hidden" name="num_children_under_18" value={{form_response.num_children_under_18}}>
+        <input type="hidden" name="other_dependents" value={{form_response.other_dependents}}>
+        <input type="hidden" name="other_dependent_income" value={{form_response.other_dependent_income}}>
+        <input type="hidden" name="food" value={{form_response.food}}>
+        <input type="hidden" name="healthcare" value={{form_response.healthcare}}>
+        <input type="hidden" name="rent" value={{form_response.rent}}>
+        <input type="hidden" name="childcare" value={{form_response.childcare}}>
+        <input type="hidden" name="transportation" value={{form_response.transportation}}>
+
+        <div class="card text" style="width: 30rem;">
+          <div class="card-header">
+          About You
+          </div>
+          <div class="card-body">
+
+            <div class="form-group">
+              <label for="gross_income">What County do you live in?</label>
+
+              <select type="number" class="form-control" name="county" id="county" placeholder="County">
+                {{#each counties}}
+                  {{#ifEquals this form_response.county}}
+                    <option value={{this}} selected="selected"> {{this}} </option>
+                  {{/ifEquals}}
+                  {{#ifNotEquals this form_response.county}}
+                    <option value={{this}}> {{this}} </option>
+                  {{/ifNotEquals}}
+                {{/each}}
+              </select>
+              <small> County resets everytime you go back to this page</small>
+
+            </div>
+
+            <div class="mt-3">
+              <h7> Marital Status
+            </div>
+
+
+            {{#ifEquals form_response.married "1"}}
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="married" id="not_married" value="0" checked=''>
+              <label class="form-check-label" for="not_married">
+                Single
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="married" id="married" value="1" checked="checked">
+              <label class="form-check-label" for="married">
+                Married and Living With Spouse
+              </label>
+            </div>
+
+            {{/ifEquals}}
+
+
+            {{#ifEquals form_response.married "0"}}
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="married" id="not_married" value="0" checked="checked">
+              <label class="form-check-label" for="not_married">
+                Single
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="married" id="married" value="1">
+              <label class="form-check-label" for="married">
+                Married and Living With Spouse
+              </label>
+            </div>
+
+            {{/ifEquals}}
+
+            {{#ifEquals form_response.married ""}}
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="married" id="not_married" value="0">
+              <label class="form-check-label" for="not_married">
+                Single
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="married" id="married" value="1">
+              <label class="form-check-label" for="married">
+                Married and Living With Spouse
+              </label>
+            </div>
+
+            {{/ifEquals}}
+
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary mt-3">Next</a>
+            </div>
+          </div>
+          <div class="card-footer text-muted text-center">
+            Page 1/5
+          </div>
+
+      </form>
+    </div>
+
+
+
+  </div>
+</section>
