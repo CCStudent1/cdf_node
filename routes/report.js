@@ -62,26 +62,35 @@ async function loadTable(data){
 
   let rows = await sheet.getRows()
   console.log(rows.length)
+  let fr = form_response
+  let houseHoldSize = (1 * fr.num_children_under_1) + (1 *  fr.num_children_under_6) + (1 * fr.num_children_under_18) + 1 * fr.other_dependents
+  let grossIncome = (1*fr.gross_income) + ( 1* fr.other_income)
+  let foodCost = fr.food * 1
+  let healthCareCost = fr.healthcare * 1
+  let rentCost = fr.rent * 1
+  let childCareCost = fr.childcare
+  let transportationCost = fr.transportation
   for(let i = 0;i<rows.length;i++){
     let row = rows[i]
-    if(row.sheetID != null){
+    if(row.Ready == 1){
       console.log(row.Benefit + '\\' + row.sheetID)
-      if(row.Benefit=='CalFresh'){
         console.log('Update Sheet')
         let benefitDoc = new GoogleSpreadsheet(row.sheetID)
         await benefitDoc.useServiceAccountAuth(creds)
         await benefitDoc.loadInfo()
         let houseHoldSheet = benefitDoc.sheetsByIndex[1]
         await houseHoldSheet.loadCells()
-        
-        await updateCell(houseHoldSheet,'B3',200)//Update Income
-        await updateCell(houseHoldSheet,'B9',3)//Update Household Size
+        await updateCell(houseHoldSheet,'B3',grossIncome)//Update Income
+        await updateCell(houseHoldSheet,'B9',houseHoldSize)//Update Household Size
+        await updateCell(houseHoldSheet, 'B11',rentCost)
+        await updateCell(houseHoldSheet,'B12',childCareCost)
+        await updateCell(houseHoldSheet,'B14',foodCost)
+        await updateCell(houseHoldSheet,'B15',healthCareCost)
+        await updateCell(houseHoldSheet,'B16',transportationCost)
+
         let calcSheet = benefitDoc.sheetsByIndex[2]
         await calcSheet.loadCells()
         infoArray.push({benefit:row.Benefit,id:row.sheetID,allotment: getCellValue(calcSheet,'B2')})  
-        continue
-      }
-      infoArray.push({benefit:row.Benefit,id:row.sheetID,allotment:0})
     }
   }
   console.log('Inside Function')
@@ -98,5 +107,14 @@ router.get('/', async function(req, res, next) {
   //res.render('charts.html')
   //res.render(__dirname + "/views/charts.html", {name:queryStr});
 });
+
+router.post('/', async function(req, res, next) {
+  infoArray = []
+  form_response = JSON.parse(JSON.stringify(req.body));
+  console.log(form_response)
+  await loadTable(form_response)
+  res.render('report',{infoArray})
+});
+
 
 module.exports = router;
